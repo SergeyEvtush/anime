@@ -1,4 +1,6 @@
-const mainData = () => {
+//32 минута
+
+const categoriesData = () => {
 	const renderGanreList = (ganres) => {
 		const dropDownBlock = document.querySelector('.header__menu .dropdown');
 		ganres.forEach((item) => {
@@ -7,7 +9,7 @@ const mainData = () => {
 
 	}
 	const renderAnimeList = (array, ganres) => {
-		const wrapper = document.querySelector('.product .col-lg-8');
+		const wrapper = document.querySelector('.product-page .col-lg-8');
 		ganres.forEach((ganre) => {
 			const productBlock = document.createElement('div');
 			const listBlock = document.createElement('div');
@@ -103,4 +105,4 @@ const mainData = () => {
 			renderAnimeList(data.anime, ganres);
 		})
 }
-mainData();
+categoriesData();
