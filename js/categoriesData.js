@@ -1,10 +1,10 @@
-//32 минута
+
 
 const categoriesData = () => {
 	const renderGanreList = (ganres) => {
 		const dropDownBlock = document.querySelector('.header__menu .dropdown');
-		ganres.forEach((item) => {
-			dropDownBlock.insertAdjacentHTML('beforeend', `<li><a href="./categories.html">${item}</a></li>`)
+		ganres.forEach((ganre) => {
+			dropDownBlock.insertAdjacentHTML('beforeend', `<li><a href="./categories.html?ganre=${ganre}">${ganre}</a></li>`)
 		});
 
 	}
@@ -14,7 +14,7 @@ const categoriesData = () => {
 			const productBlock = document.createElement('div');
 			const listBlock = document.createElement('div');
 			productBlock.classList.add('mb-5');
-			const list = array.filter(item => item.ganre === ganre);
+			const list = array.filter(item => item.tags.includes(ganre));
 
 			listBlock.classList.add('row');
 			productBlock.insertAdjacentHTML('beforeend',
@@ -94,6 +94,10 @@ const categoriesData = () => {
 		.then((data) => {
 
 			const ganres = new Set()
+
+			const ganreParams = new URLSearchParams(window.location.search).get('ganre');
+
+
 			data.anime.forEach((item) => {
 				ganres.add(item.ganre)
 
@@ -102,7 +106,12 @@ const categoriesData = () => {
 				return b.views - a.views;
 			}).slice(0, 5));
 			renderGanreList(ganres);
-			renderAnimeList(data.anime, ganres);
+			if (ganreParams) {
+				renderAnimeList(data.anime, [ganreParams]);
+			} else {
+				renderAnimeList(data.anime, ganres);
+			}
+			/*  */
 		})
 }
 categoriesData();
